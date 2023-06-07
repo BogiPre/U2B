@@ -7,6 +7,6 @@ export default [
   },
   {
     path: "/inputbox",
-    component: lazy(() => import("./pages/InputBoxPage"))
+    component: lazy(() => import("./pages/yt2mp3"))
   }
 ];
