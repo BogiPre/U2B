@@ -1,7 +1,7 @@
 import { createSignal, onCleanup } from "solid-js";
 import axios from "axios";
 
-// YouTube API fetch function
+// YouTube API fetch functions
 const fetchYouTubeAPI: any = async (givenUrl: string) => {
     const playlistId = givenUrl.slice(givenUrl.indexOf("playlist?list=") + "playlist?list=".length);
     const videoId = givenUrl.slice(givenUrl.indexOf("watch?v=") + "watch?v=".length);
@@ -51,8 +51,7 @@ const fetchYouTubeAPI: any = async (givenUrl: string) => {
     }
 
 }
-
-// Your component
+// Component
 export default function InputBoxPage() {
     const [inputValue, setInputValue] = createSignal("");
     const [apiResponse, setApiResponse] = createSignal(null);
