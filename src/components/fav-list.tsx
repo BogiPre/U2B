@@ -49,8 +49,8 @@ export default function FavList() {
     //DEBUG
 
     const removeFromFavList = (event: MouseEvent) => {
-        const svg = event.target as HTMLElement;
-        const anchor = svg.parentElement?.querySelector(".link") as HTMLAnchorElement;
+        let svg = event.currentTarget as HTMLElement;
+        const anchor = svg.parentElement?.querySelector("a") as HTMLAnchorElement;
         const elementToBeDeleted = favList().find(element => element.name == anchor.innerText && element.url == anchor.href);
         const newFavList = favList().filter(element => element !== elementToBeDeleted);
         setFavList(newFavList);
@@ -68,11 +68,15 @@ export default function FavList() {
                 <For each={favList()}>
                     {
                         (entry, i) => (
-                            <div class={`text-center text-lg bg-gray-700 rounded-sm ${!isOpen() && "invisible"}`}>
+                            <div class={`flex gap-5 p-3 justify-between text-center text-lg bg-gray-700 rounded-sm ${!isOpen() && "invisible"}`}>
                                 <a target="_blank" href={entry.url} class="link">{entry.name}</a>
-                                {/* add fav symbol */}
-                                    <svg onClick={removeFromFavList} />
-                                {/* add fav symbol */}
+                                <svg onClick={removeFromFavList} xmlns="http://www.w3.org/2000/svg" viewBox="0,0,256,256" width="32px" height="32px" fill-rule="nonzero">
+                                    <g fill="#d7d7d7" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+                                        <g transform="scale(8,8)">
+                                            <path d="M13.59375,4l-0.3125,0.28125l-0.71875,0.71875h-6.5625v2h1v18c0,1.64453 1.35547,3 3,3h12c1.64453,0 3,-1.35547 3,-3v-18h1v-2h-6.5625l-0.71875,-0.71875l-0.3125,-0.28125zM14.4375,6h3.125l0.71875,0.71875l0.3125,0.28125h4.40625v18c0,0.55469 -0.44531,1 -1,1h-12c-0.55469,0 -1,-0.44531 -1,-1v-18h4.40625l0.3125,-0.28125zM11,11v11h2v-11zM15,11v11h2v-11zM19,11v11h2v-11z" />
+                                        </g>
+                                    </g>
+                                </svg>
                             </div>
                         )
                     }
