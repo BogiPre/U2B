@@ -89,6 +89,7 @@ export default function InputBoxPage() {
         const anchor = svg.parentElement?.querySelector("a") as HTMLAnchorElement;
         const urlToSave = anchor?.href;
         setFavList([...favList(), new FavListEntry(anchor.innerText, urlToSave)]);
+        localStorage.setItem("savedLinks", JSON.stringify(favList()));
     }
 
     return (
