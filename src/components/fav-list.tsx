@@ -15,12 +15,15 @@ export const [favList, setFavList] = createSignal(new Array<FavListEntry>());
 export default function FavList() {
     const [isOpen, setIsOpen] = createSignal(true);
 
+    setFavList(JSON.parse(localStorage.getItem("savedLinks") ?? "[]"));
+
     const removeFromFavList = (event: MouseEvent) => {
         let svg = event.currentTarget as HTMLElement;
         const anchor = svg.parentElement?.querySelector("a") as HTMLAnchorElement;
         const elementToBeDeleted = favList().find(element => element.url == anchor.href);
         const newFavList = favList().filter(element => element !== elementToBeDeleted);
         setFavList(newFavList);
+        localStorage.setItem("savedLinks", JSON.stringify(favList()));
     }
 
     return (
