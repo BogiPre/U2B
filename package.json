@@ -10,6 +10,7 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "@types/animejs": "^3.1.7",
     "autoprefixer": "^10.4.14",
     "postcss": "^8.4.21",
     "tailwindcss": "^3.3.1",
@@ -19,7 +20,9 @@
   },
   "dependencies": {
     "@solidjs/router": "^0.8.2",
+    "animejs": "^3.2.1",
     "axios": "^1.4.0",
-    "solid-js": "^1.6.10"
+    "solid-js": "^1.6.10",
+    "solidjs-swiper": "^1.0.6"
   }
 }
