@@ -1,8 +1,8 @@
 import { createSignal } from "solid-js";
 
 const options = [
-    //{name: "Low", icon: "src/assets/low.svg", index: 0},
-    {name: "Medium", icon: "src/assets/med.svg", index: 0 },
+    {name: "Low", icon: "src/assets/low.svg", index: 0},
+    //{name: "Medium", icon: "src/assets/med.svg", index: 0 },
     {name: "High", icon: "src/assets/high.svg", index: 1 },
 ];
 

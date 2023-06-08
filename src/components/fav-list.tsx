@@ -10,48 +10,15 @@ export class FavListEntry {
     }
 }
 
-//DEBUG
-    const debugEntryList = [
-        new FavListEntry("name1", "https://www.youtube.com/watch?v=ghajggFADS"),
-        new FavListEntry("name2", "https://www.youtube.com/watch?v=ghaASdfgb"),
-        new FavListEntry("name3", "https://www.youtube.com/watch?v=ghajafgb"),
-        new FavListEntry("name4", "https://www.youtube.com/watch?v=gffajsdb"),
-        new FavListEntry("name1", "https://www.youtube.com/watch?v=ghajggFADS"),
-        new FavListEntry("name2", "https://www.youtube.com/watch?v=ghaASdfgb"),
-        new FavListEntry("name3", "https://www.youtube.com/watch?v=ghajafgb"),
-        new FavListEntry("name4", "https://www.youtube.com/watch?v=gffajsdb"),
-        new FavListEntry("name1", "https://www.youtube.com/watch?v=ghajggFADS"),
-        new FavListEntry("name2", "https://www.youtube.com/watch?v=ghaASdfgb"),
-        new FavListEntry("name3", "https://www.youtube.com/watch?v=ghajafgb"),
-        new FavListEntry("name4", "https://www.youtube.com/watch?v=gffajsdb"),
-        new FavListEntry("name1", "https://www.youtube.com/watch?v=ghajggFADS"),
-        new FavListEntry("name2", "https://www.youtube.com/watch?v=ghaASdfgb"),
-        new FavListEntry("name3", "https://www.youtube.com/watch?v=ghajafgb"),
-        new FavListEntry("name4", "https://www.youtube.com/watch?v=gffajsdb"),
-        new FavListEntry("name1", "https://www.youtube.com/watch?v=ghajggFADS"),
-        new FavListEntry("name2", "https://www.youtube.com/watch?v=ghaASdfgb"),
-        new FavListEntry("name3", "https://www.youtube.com/watch?v=ghajafgb"),
-        new FavListEntry("name4", "https://www.youtube.com/watch?v=gffajsdb"),
-        new FavListEntry("name1", "https://www.youtube.com/watch?v=ghajggFADS"),
-        new FavListEntry("name2", "https://www.youtube.com/watch?v=ghaASdfgb"),
-        new FavListEntry("name3", "https://www.youtube.com/watch?v=ghajafgb"),
-        new FavListEntry("name4", "https://www.youtube.com/watch?v=gffajsdb")
-    ]
-//DEBUG
-
 export const [favList, setFavList] = createSignal(new Array<FavListEntry>());
 
 export default function FavList() {
     const [isOpen, setIsOpen] = createSignal(true);
 
-    //DEBUG
-        setFavList(debugEntryList);
-    //DEBUG
-
     const removeFromFavList = (event: MouseEvent) => {
         let svg = event.currentTarget as HTMLElement;
         const anchor = svg.parentElement?.querySelector("a") as HTMLAnchorElement;
-        const elementToBeDeleted = favList().find(element => element.name == anchor.innerText && element.url == anchor.href);
+        const elementToBeDeleted = favList().find(element => element.url == anchor.href);
         const newFavList = favList().filter(element => element !== elementToBeDeleted);
         setFavList(newFavList);
     }
@@ -69,7 +36,7 @@ export default function FavList() {
                     {
                         (entry, i) => (
                             <div class={`flex gap-5 p-3 justify-between text-center text-lg bg-gray-700 rounded-sm ${!isOpen() && "invisible"}`}>
-                                <a target="_blank" href={entry.url} class="link">{entry.name}</a>
+                                <a target="_blank" href={entry.url} class="link">{entry.name.slice(0, 12) + (entry.name.length > 12 ? "..." : "")}</a>
                                 <svg onClick={removeFromFavList} xmlns="http://www.w3.org/2000/svg" viewBox="0,0,256,256" width="32px" height="32px" fill-rule="nonzero">
                                     <g fill="#d7d7d7" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
                                         <g transform="scale(8,8)">

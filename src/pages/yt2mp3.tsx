@@ -25,11 +25,15 @@ const fetchYouTubeAPI: any = async (givenUrl: string) => {
         
         try {
             const response = await axios.request(options);
-            response.data.data.forEach((element: any) => {
-                setTimeout(() => {
-                    fetchYouTubeAPI("https://www.youtube.com/watch?v=" + element.videoId);
-                }, 5000);
-            });
+            let index = 0;
+            const interval = setInterval(() => {
+                if (index >= response.data.data.length) {
+                    clearInterval(interval);
+                    return;
+                }
+                fetchYouTubeAPI("https://www.youtube.com/watch?v=" + response.data.data[index].videoId);
+                index++;
+            }, 1000);
         } catch (error) {
             console.error(error);
         }
@@ -37,20 +41,18 @@ const fetchYouTubeAPI: any = async (givenUrl: string) => {
     }
 
     const options = {
-    method: 'GET',
-    url: 'https://yt-api.p.rapidapi.com/dl',
-    params: {id: videoId},
-    headers: {
-        'X-RapidAPI-Key': 'c7ab3deda8msh2451a1693896b23p1a6f98jsnab2367e95718',
-        'X-RapidAPI-Host': 'yt-api.p.rapidapi.com'
-    }
+        method: 'GET',
+        url: 'https://youtube-mp36.p.rapidapi.com/dl',
+        params: {id: videoId},
+        headers: {
+            'X-RapidAPI-Key': 'c7ab3deda8msh2451a1693896b23p1a6f98jsnab2367e95718',
+            'X-RapidAPI-Host': 'youtube-mp36.p.rapidapi.com'
+        }
     };
 
     try {
         const response = await axios.request(options);
-        const url = response.data.formats[selectedOption().index].url;
-
-        console.log(response.data.formats);
+        const url = response.data.link;
 
         setDownloadList([...downloadList(), new DownloadListEntry(response.data.title, url)]);
         
