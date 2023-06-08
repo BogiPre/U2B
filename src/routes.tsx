@@ -7,10 +7,10 @@ export default [
   },
   {
     path: "/mp3",
-    component: lazy(() => import("./pages/yt2mp"))
+    component: lazy(() => import("./pages/yt2mp4"))
   },
   {
     path: "/mp4",
-    component: lazy(() => import("./pages/yt2mp"))
+    component: lazy(() => import("./pages/yt2mp4"))
   }
 ];

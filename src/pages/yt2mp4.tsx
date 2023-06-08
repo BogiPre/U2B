@@ -48,6 +48,8 @@ const fetchYouTubeAPI: any = async (givenUrl: string) => {
         const response = await axios.request(options);
         const url = response.data.formats[selectedOption().index].url;
 
+        console.log(response.data.formats);
+
         setDownloadList([...downloadList(), new DownloadListEntry(response.data.title, url)]);
         
         return url;
