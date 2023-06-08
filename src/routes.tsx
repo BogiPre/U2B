@@ -6,7 +6,11 @@ export default [
     component: lazy(() => import("./pages/landing-page"))
   },
   {
-    path: "/inputbox",
-    component: lazy(() => import("./pages/yt2mp3"))
+    path: "/mp3",
+    component: lazy(() => import("./pages/yt2mp"))
+  },
+  {
+    path: "/mp4",
+    component: lazy(() => import("./pages/yt2mp"))
   }
 ];

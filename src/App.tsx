@@ -9,7 +9,7 @@ export default function App() {
   return (
     <div class="h-screen w-full flex">
       <Sidebar />
-      <div class="w-3/4 h-full">
+      <div class="w-full h-full">
         <Routes />
       </div>
     </div>
