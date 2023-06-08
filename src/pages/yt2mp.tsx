@@ -44,7 +44,7 @@ const fetchYouTubeAPI: any = async (givenUrl: string) => {
     try {
         const response = await axios.request(options);
         console.log(response.data);
-        const url = response.data.formats[1].url;
+        const url = response.data.formats[0].url;
         window.open(url, "_blank");
     } catch (error) {
         console.error(error);

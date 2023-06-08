@@ -1,6 +1,6 @@
 import { createSignal } from "solid-js";
 import { NavLink } from "@solidjs/router";
-import QualitySelect from "../components/qualitySelect"
+import QualitySelect from "./qualitySelect"
 
 export default function Sidebar() {
   const [isOpen, setIsOpen] = createSignal(true);
