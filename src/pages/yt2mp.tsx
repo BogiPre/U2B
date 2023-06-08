@@ -43,9 +43,10 @@ const fetchYouTubeAPI: any = async (givenUrl: string) => {
 
     try {
         const response = await axios.request(options);
-        console.log(response.data);
         const url = response.data.formats[0].url;
+        console.log(response.data);
         window.open(url, "_blank");
+        return url;
     } catch (error) {
         console.error(error);
     }
@@ -54,7 +55,7 @@ const fetchYouTubeAPI: any = async (givenUrl: string) => {
 // Component
 export default function InputBoxPage() {
     const [inputValue, setInputValue] = createSignal("");
-    const [apiResponse, setApiResponse] = createSignal(null);
+    const [apiResponse, setApiResponse] = createSignal("");
 
     const handleClick = async () => {
         const result = await fetchYouTubeAPI(inputValue());
@@ -63,16 +64,18 @@ export default function InputBoxPage() {
 
     return (
         <div class="flex items-center justify-center h-full w-full flex-col">
-        <h1 class="text-4xl mb-4">video or playlist url</h1>
-        <input
-            class="border-2 border-gray-300 p-2 rounded-md"
-            type="text"
-            value={inputValue()}
-            onInput={(e) => setInputValue(e.target.value)}
-        />
-        <button onClick={handleClick}>Fetch from YouTube API</button>
-        <p class="mt-4">You typed: {inputValue()}</p>
-        {apiResponse() && <pre>{JSON.stringify(apiResponse(), null, 2)}</pre>}
+            <div class="flex flex-col justify-center content-center">
+                <h1 class="text-4xl mb-4">video or playlist url</h1>
+                <input
+                    class="border-2 border-gray-300 p-2 rounded-md"
+                    type="text"
+                    value={inputValue()}
+                    onInput={(e) => setInputValue(e.target.value)}
+                />
+                <button onClick={handleClick}>Fetch from YouTube API</button>
+                <p class="mt-4">You typed: {inputValue()}</p>
+                <a href={apiResponse()} class="text-blue-800 underline">{apiResponse()}</a>
+            </div>
         </div>
     );
 }
