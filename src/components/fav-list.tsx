@@ -1,7 +1,7 @@
 import { createSignal } from "solid-js";
 import { For } from "solid-js";
 
-class FavListEntry {
+export class FavListEntry {
     public name: string;
     public url: string;
     constructor(name: string, url: string) {
@@ -10,9 +10,51 @@ class FavListEntry {
     }
 }
 
+//DEBUG
+    const debugEntryList = [
+        new FavListEntry("name1", "https://www.youtube.com/watch?v=ghajggFADS"),
+        new FavListEntry("name2", "https://www.youtube.com/watch?v=ghaASdfgb"),
+        new FavListEntry("name3", "https://www.youtube.com/watch?v=ghajafgb"),
+        new FavListEntry("name4", "https://www.youtube.com/watch?v=gffajsdb"),
+        new FavListEntry("name1", "https://www.youtube.com/watch?v=ghajggFADS"),
+        new FavListEntry("name2", "https://www.youtube.com/watch?v=ghaASdfgb"),
+        new FavListEntry("name3", "https://www.youtube.com/watch?v=ghajafgb"),
+        new FavListEntry("name4", "https://www.youtube.com/watch?v=gffajsdb"),
+        new FavListEntry("name1", "https://www.youtube.com/watch?v=ghajggFADS"),
+        new FavListEntry("name2", "https://www.youtube.com/watch?v=ghaASdfgb"),
+        new FavListEntry("name3", "https://www.youtube.com/watch?v=ghajafgb"),
+        new FavListEntry("name4", "https://www.youtube.com/watch?v=gffajsdb"),
+        new FavListEntry("name1", "https://www.youtube.com/watch?v=ghajggFADS"),
+        new FavListEntry("name2", "https://www.youtube.com/watch?v=ghaASdfgb"),
+        new FavListEntry("name3", "https://www.youtube.com/watch?v=ghajafgb"),
+        new FavListEntry("name4", "https://www.youtube.com/watch?v=gffajsdb"),
+        new FavListEntry("name1", "https://www.youtube.com/watch?v=ghajggFADS"),
+        new FavListEntry("name2", "https://www.youtube.com/watch?v=ghaASdfgb"),
+        new FavListEntry("name3", "https://www.youtube.com/watch?v=ghajafgb"),
+        new FavListEntry("name4", "https://www.youtube.com/watch?v=gffajsdb"),
+        new FavListEntry("name1", "https://www.youtube.com/watch?v=ghajggFADS"),
+        new FavListEntry("name2", "https://www.youtube.com/watch?v=ghaASdfgb"),
+        new FavListEntry("name3", "https://www.youtube.com/watch?v=ghajafgb"),
+        new FavListEntry("name4", "https://www.youtube.com/watch?v=gffajsdb")
+    ]
+//DEBUG
+
+export const [favList, setFavList] = createSignal(new Array<FavListEntry>());
+
 export default function FavList() {
     const [isOpen, setIsOpen] = createSignal(true);
-    const [favList, setFavList] = createSignal(new Array<FavListEntry>());
+
+    //DEBUG
+        setFavList(debugEntryList);
+    //DEBUG
+
+    const removeFromFavList = (event: MouseEvent) => {
+        const svg = event.target as HTMLElement;
+        const anchor = svg.parentElement?.querySelector(".link") as HTMLAnchorElement;
+        const elementToBeDeleted = favList().find(element => element.name == anchor.innerText && element.url == anchor.href);
+        const newFavList = favList().filter(element => element !== elementToBeDeleted);
+        setFavList(newFavList);
+    }
 
     return (
         <div class={`p-4 bg-gray-800 text-white h-screen transition-width duration-500 ease-out flex-col flex right-0 ${!isOpen() ? "w-24" : "w-[400px]"}`}>
@@ -22,11 +64,16 @@ export default function FavList() {
                 </button>
                 {isOpen() && <h1 class={`text-xl pt-0.5`}>Saved Links</h1>}
             </div>
-            <div class="flex bg-gray-700">
+            <div class={`flex flex-col align-baseline p-3 rounded-2xl border-2 gap-2 min-h-[3rem] ${isOpen() ? "overflow-y-scroll" : "overflow-hidden"} max-h-full`}>
                 <For each={favList()}>
                     {
                         (entry, i) => (
-                            <a target="_blank" href={entry.url}>entry.name</a>
+                            <div class={`text-center text-lg bg-gray-700 rounded-sm ${!isOpen() && "invisible"}`}>
+                                <a target="_blank" href={entry.url} class="link">{entry.name}</a>
+                                {/* add fav symbol */}
+                                    <svg onClick={removeFromFavList} />
+                                {/* add fav symbol */}
+                            </div>
                         )
                     }
                 </For>

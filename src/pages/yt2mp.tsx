@@ -1,5 +1,8 @@
-import { createSignal, onCleanup } from "solid-js";
+import { For, createSignal, onCleanup } from "solid-js";
 import axios from "axios";
+import {favList, setFavList, FavListEntry } from "../components/fav-list";
+
+const [downloadList, setDownloadList] = createSignal(new Array<DownloadListEntry>());
 
 // YouTube API fetch functions
 const fetchYouTubeAPI: any = async (givenUrl: string) => {
@@ -46,12 +49,27 @@ const fetchYouTubeAPI: any = async (givenUrl: string) => {
         const url = response.data.formats[0].url;
         console.log(response.data);
         window.open(url, "_blank");
+
+        setDownloadList([...downloadList(), new DownloadListEntry(response.data.title, url)]);
+
         return url;
     } catch (error) {
         console.error(error);
     }
 
 }
+
+
+
+class DownloadListEntry {
+    public name: string;
+    public url: string;
+    constructor(name: string, url: string) {
+        this.name = name;
+        this.url = url;
+    }
+}
+
 // Component
 export default function InputBoxPage() {
     const [inputValue, setInputValue] = createSignal("");
@@ -61,6 +79,13 @@ export default function InputBoxPage() {
         const result = await fetchYouTubeAPI(inputValue());
         setApiResponse(result);
     };
+
+    const addToFavList = (event: MouseEvent) => {
+        const svg = event.target as HTMLElement;
+        const anchor = svg.parentElement?.querySelector(".link") as HTMLAnchorElement;
+        const urlToSave = anchor?.href;
+        setFavList([...favList(), new FavListEntry(anchor.innerText, urlToSave)]);
+    }
 
     return (
         <div class="flex items-center justify-center h-full w-full flex-col">
@@ -74,7 +99,30 @@ export default function InputBoxPage() {
                 />
                 <button onClick={handleClick}>Fetch from YouTube API</button>
                 <p class="mt-4">You typed: {inputValue()}</p>
-                <a href={apiResponse()} class="text-blue-800 underline">{apiResponse()}</a>
+                {/* <a href={apiResponse()} class="text-blue-800 underline">{apiResponse()}</a> */}
+            </div>
+            <div class="flex flex-col align-baseline p-3 rounded-2xl border-2 gap-2 min-h-[3rem] overflow-y-scroll max-h-full">
+                <For each={downloadList()}>
+                    {
+                        (entry, i) => (
+                            <div class="text-center text-lg bg-gray-700 rounded-sm">
+                                <a target="_blank" href={entry.url}>{entry.name}</a>
+                                {/* add fav symbol */}
+                                    <svg onClick={addToFavList} />
+                                {/* add fav symbol */}
+                            </div>
+                        )
+                    }
+                </For>
+                {/* DEBUG */}
+                    <div class="text-center text-lg bg-gray-700 rounded-sm">
+                    <a target="_blank" href="" class="link text-center text-lg bg-gray-700 rounded-sm">name1</a>
+                    {/* add fav symbol */}
+                        <svg onClick={addToFavList} />
+                    {/* add fav symbol */}
+                    </div>
+                    
+                {/* DEBUG */}
             </div>
         </div>
     );
