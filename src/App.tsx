@@ -1,4 +1,3 @@
-import { A } from "@solidjs/router";
 import Sidebar from "./components/sidebar";
 import { useRoutes } from "@solidjs/router";
 import routes from "./routes";
@@ -10,7 +9,7 @@ export default function App() {
   return (
     <div class="h-screen w-screen flex">
       <Sidebar />
-      <div class="w-full h-full">
+      <div class="w-full h-full overflow-hidden">
         <Routes />
       </div>
       <FavList />
