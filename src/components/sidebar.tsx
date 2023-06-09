@@ -52,8 +52,8 @@ export default function Sidebar() {
               </NavLink>
             </div>
           </div>
-          <div class={`border-b mx-2 ${location.pathname === '/' || location.pathname === '/mp3' ? "hidden" : "visible"}`}></div>
-          <div class={` ${location.pathname === '/' || location.pathname === '/mp3' ? "hidden" : "visible"}`}>
+          <div class={`border-b mx-2 ${/*location.pathname === '/' || location.pathname === '/mp3' ? "hidden" : "visible"*/ ""}`}></div>
+          <div class={` ${location.pathname === '/' || location.pathname === '/mp3' ? /*"hidden"*/ "invisible" : "visible"}`}>
             <QualitySelect value={isOpen()} />
           </div>
         </div>

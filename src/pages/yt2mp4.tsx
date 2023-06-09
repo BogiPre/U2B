@@ -93,7 +93,7 @@ export default function InputBoxPage() {
     return (
         <div class="flex items-center justify-center h-full w-full flex-col gap-5">
             <div class="flex flex-col gap-5 justify-center content-center">
-                <h1 class="text-4xl mb-4">Video or Playlist Url</h1>
+                <h1 class="text-4xl mb-4 text-center">Video or Playlist Url</h1>
                 <input
                     class="border-2 border-gray-300 p-2 rounded-md"
                     type="text"

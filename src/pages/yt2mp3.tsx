@@ -93,7 +93,7 @@ export default function InputBoxPage() {
     }
 
     return (
-        <div class="flex items-center justify-center h-full mx-auto sm:w-fit w-fit flex-col gap-5">
+        <div class="flex items-center justify-center h-full w-full flex-col gap-5">
             <div class="flex flex-col gap-5 justify-center content-center">
                 <h1 class="text-4xl mb-4 text-center">Video or Playlist Url</h1>
                 <input
@@ -105,7 +105,7 @@ export default function InputBoxPage() {
                 <button class="text-xl border-2 rounded-md" onClick={handleClick}>Fetch from YouTube API</button>
                 {/* <a href={apiResponse()} class="text-blue-800 underline">{apiResponse()}</a> */}
             </div>
-            <div class="flex flex-col w-full  min-w-[10rem] gap-5 align-baseline p-3 rounded-2xl border-2 min-h-[3rem] overflow-y-scroll max-h-full">
+            <div class="flex flex-col max-w-full min-w-[20rem] gap-5 align-baseline p-3 rounded-2xl border-2 min-h-[3rem] overflow-y-scroll max-h-full">
                 <For each={downloadList()}>
                     {
                         (entry, i) => (
