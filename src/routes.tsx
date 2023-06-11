@@ -12,5 +12,9 @@ export default [
   {
     path: "/mp4",
     component: lazy(() => import("./pages/yt2mp4"))
+  },
+  {
+    path: "/*",
+    component: lazy(() => import("./pages/NotFoundPage"))
   }
 ];
