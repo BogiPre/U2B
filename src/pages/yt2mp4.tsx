@@ -1,6 +1,6 @@
 import { For, createSignal, onCleanup } from "solid-js";
 import axios from "axios";
-import {favList, setFavList, FavListEntry } from "../components/fav-list";
+import { favList, setFavList, FavListEntry } from "../components/fav-list";
 import { selectedOption } from "../components/qualitySelect";
 import InputBox from "../components/InputBox";
 import DownloadList from "../components/DownloadList";
@@ -12,7 +12,7 @@ const [downloadList, setDownloadList] = createSignal(new Array<DownloadListEntry
 const fetchYouTubeAPI: any = async (givenUrl: string) => {
     const playlistId = givenUrl.slice(givenUrl.indexOf("playlist?list=") + "playlist?list=".length);
     const videoId = givenUrl.slice(givenUrl.indexOf("watch?v=") + "watch?v=".length);
-    
+
     if (givenUrl.includes("playlist?list=")) {
         const options = {
             method: 'GET',
@@ -25,7 +25,7 @@ const fetchYouTubeAPI: any = async (givenUrl: string) => {
                 'X-RapidAPI-Host': 'yt-api.p.rapidapi.com'
             }
         };
-        
+
         try {
             const response = await axios.request(options);
             response.data.data.forEach((element: any) => {
@@ -40,13 +40,13 @@ const fetchYouTubeAPI: any = async (givenUrl: string) => {
     }
 
     const options = {
-    method: 'GET',
-    url: 'https://yt-api.p.rapidapi.com/dl',
-    params: {id: videoId},
-    headers: {
-        'X-RapidAPI-Key': 'c7ab3deda8msh2451a1693896b23p1a6f98jsnab2367e95718',
-        'X-RapidAPI-Host': 'yt-api.p.rapidapi.com'
-    }
+        method: 'GET',
+        url: 'https://yt-api.p.rapidapi.com/dl',
+        params: { id: videoId },
+        headers: {
+            'X-RapidAPI-Key': 'c7ab3deda8msh2451a1693896b23p1a6f98jsnab2367e95718',
+            'X-RapidAPI-Host': 'yt-api.p.rapidapi.com'
+        }
     };
 
     try {
@@ -56,7 +56,7 @@ const fetchYouTubeAPI: any = async (givenUrl: string) => {
         console.log(response.data.formats);
 
         setDownloadList([...downloadList(), new DownloadListEntry(response.data.title, url)]);
-        
+
         return url;
     } catch (error) {
         console.error(error);
@@ -83,10 +83,13 @@ export default function InputBoxPage() {
     }
 
     return (
-        <div class="flex flex-col items-center justify-center h-full w-full gap-5">
-            <h1 class="text-4xl mb-4 text-center">Video or Playlist Url</h1>
-            <InputBox inputValue={inputValue} setInputValue={setInputValue} handleClick={handleClick} />
-            <DownloadList downloadList={downloadList} addToFavList={addToFavList} />
-        </div>
+        <main class="flex items-center justify-center min-h-screen">
+            <div class="flex flex-col items-center justify-center w-max mx-auto gap-8 p-8 bg-gray-50 h-min shadow-md">
+                <h1 class="text-4xl mb-4 text-center text-gray-700">Video or Playlist Url</h1>
+                <InputBox inputValue={inputValue} setInputValue={setInputValue} handleClick={handleClick} />
+                <DownloadList downloadList={downloadList} addToFavList={addToFavList} />
+            </div>
+        </main>
+
     );
 }

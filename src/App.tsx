@@ -7,12 +7,13 @@ export default function App() {
   const Routes = useRoutes(routes);
 
   return (
-    <div class="h-screen w-screen flex">
+  <>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" /><div class="h-screen w-screen flex bg-gray-100">
       <Sidebar />
       <div class="w-full h-full overflow-hidden">
         <Routes />
       </div>
       <FavList />
-    </div>
+    </div></>
   );
 }
