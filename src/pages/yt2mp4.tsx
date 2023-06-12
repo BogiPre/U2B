@@ -13,13 +13,13 @@ const [downloadList, setDownloadList] = createSignal(
 // YouTube API fetch functions
 const fetchYouTubeAPI: any = async (givenUrl: string) => {
   const youtubeUrlRegex =
-    /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/;
+    /^(https?:\/\/)?(www\.)?(youtube\.com)\/.+$/;
   if (!youtubeUrlRegex.test(givenUrl)) {
     alert(
       "Invalid YouTube URL. Please enter a valid YouTube video or playlist URL."
     );
     return;
-  }
+  } 
 
   const playlistId = givenUrl.slice(
     givenUrl.indexOf("playlist?list=") + "playlist?list=".length
@@ -54,31 +54,33 @@ const fetchYouTubeAPI: any = async (givenUrl: string) => {
     return {};
   }
 
-  const options = {
-    method: "GET",
-    url: "https://yt-api.p.rapidapi.com/dl",
-    params: { id: videoId },
-    headers: {
-      "X-RapidAPI-Key": "c7ab3deda8msh2451a1693896b23p1a6f98jsnab2367e95718",
-      "X-RapidAPI-Host": "yt-api.p.rapidapi.com",
-    },
-  };
-
-  try {
-    const response = await axios.request(options);
-    const url = response.data.formats[selectedOption().index].url;
-
-    console.log(response.data.formats);
-
-    setDownloadList([
-      ...downloadList(),
-      new DownloadListEntry(response.data.title, url),
-    ]);
-
-    return url;
-  } catch (error) {
-    console.error(error);
-  }
+  if (givenUrl.includes("watch?v=")) {
+      const options = {
+        method: "GET",
+        url: "https://yt-api.p.rapidapi.com/dl",
+        params: { id: videoId },
+        headers: {
+          "X-RapidAPI-Key": "c7ab3deda8msh2451a1693896b23p1a6f98jsnab2367e95718",
+          "X-RapidAPI-Host": "yt-api.p.rapidapi.com",
+        },
+      };
+    
+      try {
+        const response = await axios.request(options);
+        const url = response.data.formats[selectedOption().index].url;
+    
+        console.log(response.data.formats);
+    
+        setDownloadList([
+          ...downloadList(),
+          new DownloadListEntry(response.data.title, url),
+        ]);
+    
+        return url;
+      } catch (error) {
+        console.error(error);
+      }
+    }
 };
 
 // Component

@@ -54,7 +54,7 @@ export default function LandingPage() {
 
 
   return (
-    <div class="h-full bg-gray-200 flex flex-col justify-between overflow-y-auto">
+    <div class="h-full w-full bg-gray-200 flex flex-col justify-between overflow-y-auto">
         <header class="bg-gray-700 text-white p-4">
           <h1 class="text-2xl font-semibold">YouTube to MP3 & MP4 Converter</h1>
         </header>
