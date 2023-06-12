@@ -10,6 +10,13 @@ const [downloadList, setDownloadList] = createSignal(new Array<DownloadListEntry
 
 // YouTube API fetch functions
 const fetchYouTubeAPI: any = async (givenUrl: string) => {
+
+    const youtubeUrlRegex = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/;
+    if (!youtubeUrlRegex.test(givenUrl)) {
+        alert("Invalid YouTube URL. Please enter a valid YouTube video or playlist URL.");
+        return;
+    }
+
     const playlistId = givenUrl.slice(givenUrl.indexOf("playlist?list=") + "playlist?list=".length);
     const videoId = givenUrl.slice(givenUrl.indexOf("watch?v=") + "watch?v=".length);
 
@@ -39,6 +46,7 @@ const fetchYouTubeAPI: any = async (givenUrl: string) => {
             }, 1000);
         } catch (error) {
             console.error(error);
+            
         }
         return {};
     }
